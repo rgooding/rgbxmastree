@@ -1,6 +1,8 @@
 from colorzero import Color
 from time import sleep,time
 import random
+from run_utils import run_single, register_effect
+
 
 def streams(tree, end_time):
     main_colour = Color('blue')
@@ -38,3 +40,9 @@ def streams(tree, end_time):
         si = si + 1
         if si >= len(streams):
             si = 0
+
+
+if __name__ == '__main__':
+    run_single(streams)
+else:
+    register_effect(streams)
