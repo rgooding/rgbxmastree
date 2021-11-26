@@ -1,7 +1,7 @@
 from colorzero import Color
 from time import sleep,time
 import random
-from lib.run_utils import run_single, register_effect
+from lib.run_utils import register_effect
 
 
 def sparkles(tree, end_time):
@@ -33,7 +33,4 @@ def sparkles(tree, end_time):
         tree.apply(True)
 
 
-if __name__ == '__main__':
-    run_single(sparkles)
-else:
-    register_effect(sparkles)
+register_effect(sparkles)

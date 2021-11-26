@@ -1,7 +1,7 @@
 from colorzero import Color
 from time import sleep,time
 import random
-from lib.run_utils import run_single, register_effect
+from lib.run_utils import register_effect
 
 
 def streams(tree, end_time):
@@ -35,7 +35,4 @@ def streams(tree, end_time):
             sleep(0.05)
 
 
-if __name__ == '__main__':
-    run_single(streams)
-else:
-    register_effect(streams)
+register_effect(streams)
