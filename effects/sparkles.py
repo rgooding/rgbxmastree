@@ -7,7 +7,7 @@ from lib.run_utils import register_effect
 def sparkles(tree, end_time):
     main_colour = Color('blue')
     main_brightness = 0.033
-    sparkle_brightness = 0.25
+    sparkle_brightness = 0.125
     sparkle_colours = [
         Color('blue'),
         Color('cyan'),
