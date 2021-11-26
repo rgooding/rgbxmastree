@@ -13,16 +13,17 @@ def register_effect(f):
 
 def run_multi():
     global effect_funcs
-    funcs = effect_funcs
 
     tree = RGBXmasTree()
     try:
-        tree.brightness = 0.04
-
         while True:
-            f = random.choice(funcs)
-            print("Running " + str(f))
-            f(tree, time() + 30)
+            random.shuffle(effect_funcs)
+
+            for f in effect_funcs:
+                tree.updates_enabled = True
+                tree.brightness = 0.04
+                print("Running " + str(f))
+                f(tree, time() + 30)
     except KeyboardInterrupt:
         pass
     finally:
