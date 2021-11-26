@@ -1,6 +1,6 @@
 from colorzero import Color, Hue
 from time import time, sleep
-from run_utils import run_single, register_effect
+from lib.run_utils import run_single, register_effect
 
 
 def stripes_rotate(tree, end_time):

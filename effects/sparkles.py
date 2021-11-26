@@ -1,7 +1,7 @@
 from colorzero import Color
 from time import sleep,time
 import random
-from run_utils import run_single, register_effect
+from lib.run_utils import run_single, register_effect
 
 
 def sparkles(tree, end_time):

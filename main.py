@@ -1,5 +1,5 @@
-from run_utils import run_multi
-import stripes_rotate, sparkles, streams
+from lib.run_utils import run_multi
+import effects.stripes_rotate, effects.sparkles, effects.streams
 
 
 if __name__ == '__main__':

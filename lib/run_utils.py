@@ -1,4 +1,4 @@
-from tree import RGBXmasTree
+from lib.tree import RGBXmasTree
 from time import time
 import random
 
