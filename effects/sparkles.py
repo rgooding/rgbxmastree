@@ -26,11 +26,11 @@ def sparkles(tree, end_time):
         p = random.choice(tree)
         p.color = random.choice(sparkle_colours)
         p.brightness = sparkle_brightness
-        tree.apply(True)
+        tree.apply()
         sleep(flash_time)
         p.color = main_colour
         p.brightness = main_brightness
-        tree.apply(True)
+        tree.apply()
 
 
 register_effect(sparkles)

@@ -18,7 +18,7 @@ def colour_waves(tree, end_time):
         for n in row:
             tree[n].color = colour
         colour += Hue(deg=30)
-    tree.apply(True)
+    tree.apply()
         
     # Rotate colours
     while end_time == 0 or time() < end_time:
@@ -28,7 +28,7 @@ def colour_waves(tree, end_time):
                 c = tree[n].color
                 c += Hue(deg=-1)
                 tree[n].color = c
-        tree.apply(True)
+        tree.apply()
 
 
 register_effect(colour_waves)
