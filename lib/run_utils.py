@@ -23,7 +23,7 @@ def run_multi():
                 tree.updates_enabled = True
                 tree.brightness = 0.04
                 print("Running " + str(f))
-                f(tree, time() + 30)
+                f(tree, time() + random.randrange(60, 90, 1))
     except KeyboardInterrupt:
         pass
     finally:
