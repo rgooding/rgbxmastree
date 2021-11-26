@@ -16,7 +16,7 @@ def stripes_rotate(tree, end_time):
     for row in rows:
         for n in row:
             tree[n].color = colour
-        colour += Hue(deg=60)
+        colour += Hue(deg=30)
         
     # Rotate colours
     while end_time == 0 or time() < end_time:
