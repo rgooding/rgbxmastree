@@ -3,7 +3,7 @@ from time import time, sleep
 from lib.run_utils import register_effect
 
 
-def stripes_rotate(tree, end_time):
+def colour_waves(tree, end_time):
     rows = [
         [3],
         [2,4,9,10,21],
@@ -31,4 +31,4 @@ def stripes_rotate(tree, end_time):
         tree.apply(True)
 
 
-register_effect(stripes_rotate)
+register_effect(colour_waves)
