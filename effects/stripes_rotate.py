@@ -12,23 +12,23 @@ def stripes_rotate(tree, end_time):
         [0, 6, 7, 12, 15, 16, 19, 24],
     ]
 
+    tree.updates_enabled = False
     colour = Color('red')
     for row in rows:
         for n in row:
             tree[n].color = colour
         colour += Hue(deg=30)
+    tree.apply(True)
         
     # Rotate colours
     while end_time == 0 or time() < end_time:
-        sleep(0.05)
-        tree.updates_enabled = False
+        sleep(0.0025)
         for row in rows:
             for n in row:
                 c = tree[n].color
-                c += Hue(deg=-5)
+                c += Hue(deg=-1)
                 tree[n].color = c
-        tree.updates_enabled = True
-        tree.apply()
+        tree.apply(True)
 
 
 register_effect(stripes_rotate)
