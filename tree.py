@@ -5,42 +5,56 @@ from time import sleep
 
 
 class Pixel:
-    def __init__(self, parent, index):
+    def __init__(self, parent, index, brightness=0.5):
         self.parent = parent
         self.index = index
-
-    @property
-    def value(self):
-        return self.parent.value[self.index]
-
-    @value.setter
-    def value(self, value):
-        new_parent_value = list(self.parent.value)
-        new_parent_value[self.index] = value
-        self.parent.value = tuple(new_parent_value)
+        self._color = (0, 0, 0)
+        self._brightness = brightness
 
     @property
     def color(self):
-        return Color(*self.value)
+        return Color(*self._color)
 
     @color.setter
     def color(self, c):
         r, g, b = c
-        self.value = (r, g, b)
+        self._color = (r, g, b)
+        self.parent.apply()
+
+    @property
+    def r(self):
+        return self._color[0]
+
+    @property
+    def g(self):
+        return self._color[1]
+
+    @property
+    def b(self):
+        return self._color[2]
+
+    @property
+    def brightness(self):
+        return self._brightness
+    
+    @brightness.setter
+    def brightness(self, b):
+        self._brightness = b
+        self.parent.apply()
 
     def on(self):
-        self.value = (1, 1, 1)
+        self.color = (1, 1, 1)
 
     def off(self):
-        self.value = (0, 0, 0)
+        self.color = (0, 0, 0)
 
 
 class RGBXmasTree(SourceMixin, SPIDevice):
     def __init__(self, pixels=25, brightness=0.5, mosi_pin=12, clock_pin=25, *args, **kwargs):
         super(RGBXmasTree, self).__init__(mosi_pin=mosi_pin, clock_pin=clock_pin, *args, **kwargs)
-        self._all = [Pixel(parent=self, index=i) for i in range(pixels)]
-        self._value = [(0, 0, 0)] * pixels
-        self.brightness = brightness
+        self._all = [Pixel(parent=self, index=i, brightness=brightness) for i in range(pixels)]
+        self._brightness = brightness
+        self.updates_enabled = True
         self.off()
 
     def __len__(self):
@@ -62,7 +76,12 @@ class RGBXmasTree(SourceMixin, SPIDevice):
     @color.setter
     def color(self, c):
         r, g, b = c
-        self.value = ((r, g, b),) * len(self)
+        was_enabled = self.updates_enabled
+        self.updates_enabled = False
+        for p in self:
+            p.color = c
+        self.updates_enabled = was_enabled
+        self.apply()
 
     @property
     def brightness(self):
@@ -70,33 +89,34 @@ class RGBXmasTree(SourceMixin, SPIDevice):
 
     @brightness.setter
     def brightness(self, brightness):
-        max_brightness = 31
-        self._brightness_bits = int(brightness * max_brightness)
+        was_enabled = self.updates_enabled
+        self.updates_enabled = False
+        for p in self:
+            p.brightness = brightness
+        self.updates_enabled = was_enabled
         self._brightness = brightness
-        self.value = self.value
+        self.apply()
+        
 
-    @property
-    def value(self):
-        return self._value
+    def apply(self, force=False):
+        if not (self.updates_enabled or force):
+            return
 
-    @value.setter
-    def value(self, value):
+        max_brightness = 31
+
         start_of_frame = [0]*4
         end_of_frame = [0]*5
-                     # SSSBBBBB (start, brightness)
-        brightness = 0b11100000 | self._brightness_bits
-        pixels = [[int(255*v) for v in p] for p in value]
-        pixels = [[brightness, b, g, r] for r, g, b in pixels]
-        pixels = [i for p in pixels for i in p]
-        data = start_of_frame + pixels + end_of_frame
+        pixels = [[0b11100000 | int(p.brightness * max_brightness), int(p.b*255), int(p.g*255), int(p.r*255)] for p in self]
+        pixel_bytes = [i for p in pixels for i in p]
+        data = start_of_frame + pixel_bytes + end_of_frame
         self._spi.transfer(data)
-        self._value = value
+        
 
     def on(self):
-        self.value = ((1, 1, 1),) * len(self)
+        self.color = (1, 1, 1)
 
     def off(self):
-        self.value = ((0, 0, 0),) * len(self)
+        self.color = (0, 0, 0)
 
     def close(self):
         super(RGBXmasTree, self).close()
@@ -104,5 +124,7 @@ class RGBXmasTree(SourceMixin, SPIDevice):
 
 if __name__ == '__main__':
     tree = RGBXmasTree()
-    
-    tree.on()
+    try:
+        tree.on()
+    finally:
+        tree.close()
