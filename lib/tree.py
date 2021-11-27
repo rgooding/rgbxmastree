@@ -68,6 +68,7 @@ class RGBXmasTree(SourceMixin, SPIDevice):
         super(RGBXmasTree, self).__init__(mosi_pin=mosi_pin, clock_pin=clock_pin, *args, **kwargs)
         self._all = [Pixel(parent=self, index=i, brightness=brightness) for i in range(pixels)]
         self._brightness = brightness
+        self._brightness_int = brightness * max_brightness
         self.updates_enabled = True
         self.off()
 
@@ -113,6 +114,20 @@ class RGBXmasTree(SourceMixin, SPIDevice):
             p.brightness = brightness
         self.updates_enabled = was_enabled
         self._brightness = brightness
+        self._apply()
+
+    @property
+    def brightness_int(self):
+        return self._brightness_int
+
+    @brightness_int.setter
+    def brightness_int(self, b):
+        was_enabled = self.updates_enabled
+        self.updates_enabled = False
+        for p in self:
+            p.brightness_int = b
+        self.updates_enabled = was_enabled
+        self._brightness_int = b
         self._apply()
 
     def apply(self):

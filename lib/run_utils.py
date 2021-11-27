@@ -12,7 +12,7 @@ def run_random(effect_funcs):
 
             for f in effect_funcs:
                 tree.updates_enabled = True
-                tree.brightness = 0.04
+                tree.brightness_int = 1
                 print("Running " + str(f))
                 f(tree, time() + random.randrange(60, 90, 1))
     except KeyboardInterrupt:
@@ -26,7 +26,7 @@ def run_random(effect_funcs):
 def run_single(f, max_duration=0):
     tree = RGBXmasTree()
     try:
-        tree.brightness = 0.04
+        tree.brightness_int = 1
         if max_duration > 0:
             end_time = time() + max_duration
         else:
