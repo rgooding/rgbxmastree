@@ -21,7 +21,7 @@ class Pixel:
     def color(self, c):
         r, g, b = c
         self._color = (r, g, b)
-        self.parent._apply()
+        self.parent.apply(False)
 
     @property
     def r(self):
@@ -54,7 +54,7 @@ class Pixel:
             self._brightness_int = 0
         if self._brightness_int > max_brightness:
             self._brightness_int = max_brightness
-        self.parent._apply()
+        self.parent.apply(False)
 
     def on(self):
         self.color = (1, 1, 1)
@@ -100,7 +100,7 @@ class RGBXmasTree(SourceMixin, SPIDevice):
         for p in self:
             p.color = c
         self.updates_enabled = was_enabled
-        self._apply()
+        self.apply(False)
 
     @property
     def brightness(self):
@@ -114,7 +114,7 @@ class RGBXmasTree(SourceMixin, SPIDevice):
             p.brightness = brightness
         self.updates_enabled = was_enabled
         self._brightness = brightness
-        self._apply()
+        self.apply(False)
 
     @property
     def brightness_int(self):
@@ -128,12 +128,9 @@ class RGBXmasTree(SourceMixin, SPIDevice):
             p.brightness_int = b
         self.updates_enabled = was_enabled
         self._brightness_int = b
-        self._apply()
+        self.apply(False)
 
-    def apply(self):
-        self._apply(True)
-
-    def _apply(self, force=False):
+    def apply(self, force=True):
         if not (self.updates_enabled or force):
             return
 
