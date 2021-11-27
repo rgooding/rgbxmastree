@@ -3,13 +3,15 @@ from statistics import mean
 from colorzero import Color
 from gpiozero import SPIDevice, SourceMixin
 
+max_brightness = 31
+
 
 class Pixel:
     def __init__(self, parent, index, brightness=0.5):
         self.parent = parent
         self.index = index
         self._color = (0, 0, 0)
-        self._brightness = brightness
+        self._brightness_int = int(brightness * max_brightness)
 
     @property
     def color(self):
@@ -35,11 +37,23 @@ class Pixel:
 
     @property
     def brightness(self):
-        return self._brightness
+        return self._brightness_int / max_brightness
 
     @brightness.setter
     def brightness(self, b):
-        self._brightness = b
+        self.brightness_int = int(b * max_brightness)
+
+    @property
+    def brightness_int(self):
+        return self._brightness_int
+
+    @brightness_int.setter
+    def brightness_int(self, b):
+        self._brightness_int = b
+        if self._brightness_int < 0:
+            self._brightness_int = 0
+        if self._brightness_int > max_brightness:
+            self._brightness_int = max_brightness
         self.parent._apply()
 
     def on(self):
@@ -108,11 +122,9 @@ class RGBXmasTree(SourceMixin, SPIDevice):
         if not (self.updates_enabled or force):
             return
 
-        max_brightness = 31
-
         start_of_frame = [0] * 4
         end_of_frame = [0] * 5
-        pixels = [[0b11100000 | int(p.brightness * max_brightness), int(p.b * 255), int(p.g * 255), int(p.r * 255)] for p in self]
+        pixels = [[0b11100000 | p.brightness_int, int(p.b * 255), int(p.g * 255), int(p.r * 255)] for p in self]
         pixel_bytes = [i for p in pixels for i in p]
         data = start_of_frame + pixel_bytes + end_of_frame
         self._spi.transfer(data)
