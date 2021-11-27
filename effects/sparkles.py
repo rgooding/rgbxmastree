@@ -1,7 +1,7 @@
-from colorzero import Color
-from time import sleep,time
 import random
-from lib.run_utils import register_effect
+from time import sleep, time
+
+from colorzero import Color
 
 
 def sparkles(tree, end_time):
@@ -17,7 +17,7 @@ def sparkles(tree, end_time):
 
     tree.color = main_colour
     tree.brightness = main_brightness
-    
+
     tree.updates_enabled = False
     while end_time == 0 or time() < end_time:
         # sleep for between 0.3 and 0.7 seconds
@@ -31,6 +31,3 @@ def sparkles(tree, end_time):
         p.color = main_colour
         p.brightness = main_brightness
         tree.apply()
-
-
-register_effect(sparkles)

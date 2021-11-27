@@ -1,18 +1,18 @@
-from colorzero import Color, Hue
 from time import time, sleep
-from lib.run_utils import register_effect
+
+from colorzero import Color, Hue
 
 
 def colour_waves_vertical(tree, end_time):
     rows = [
-        [3,2,1,0],
-        [9,8,7],
-        [13,14,15],
-        [18,17,16],
-        [10,11,12],
-        [4,5,6],
-        [21,20,19],
-        [22,23,24],
+        [3, 2, 1, 0],
+        [9, 8, 7],
+        [13, 14, 15],
+        [18, 17, 16],
+        [10, 11, 12],
+        [4, 5, 6],
+        [21, 20, 19],
+        [22, 23, 24],
     ]
 
     tree.updates_enabled = False
@@ -22,7 +22,7 @@ def colour_waves_vertical(tree, end_time):
             tree[n].color = colour
         colour += Hue(deg=30)
     tree.apply()
-        
+
     # Rotate colours
     while end_time == 0 or time() < end_time:
         sleep(0.0025)
@@ -31,6 +31,3 @@ def colour_waves_vertical(tree, end_time):
             c += Hue(deg=-1)
             p.color = c
         tree.apply()
-
-
-register_effect(colour_waves_vertical)

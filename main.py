@@ -1,7 +1,17 @@
-from lib.run_utils import run_multi, run_single
-import effects.colour_waves, effects.sparkles, effects.streams, effects.random_sparkles, effects.colour_waves_vertical
-
+from effects.colour_waves import colour_waves
+from effects.colour_waves_vertical import colour_waves_vertical
+from effects.random_sparkles import random_sparkles
+from effects.sparkles import sparkles
+from effects.streams import streams
+from lib.run_utils import run_random
 
 if __name__ == '__main__':
-    #run_single(effects.colour_waves.colour_waves)
-    run_multi()
+    # run_single(colour_waves)
+
+    run_random([
+        colour_waves,
+        colour_waves_vertical,
+        random_sparkles,
+        sparkles,
+        streams,
+    ])

@@ -1,7 +1,7 @@
-from gpiozero import SPIDevice, SourceMixin
-from colorzero import Color, Hue
 from statistics import mean
-from time import sleep
+
+from colorzero import Color
+from gpiozero import SPIDevice, SourceMixin
 
 
 class Pixel:
@@ -36,7 +36,7 @@ class Pixel:
     @property
     def brightness(self):
         return self._brightness
-    
+
     @brightness.setter
     def brightness(self, b):
         self._brightness = b
@@ -67,6 +67,11 @@ class RGBXmasTree(SourceMixin, SPIDevice):
         return iter(self._all)
 
     @property
+    def value(self):
+        # Not used, just to satisfy the abstract parent
+        return True
+
+    @property
     def color(self):
         average_r = mean(pixel.color[0] for pixel in self)
         average_g = mean(pixel.color[1] for pixel in self)
@@ -75,7 +80,6 @@ class RGBXmasTree(SourceMixin, SPIDevice):
 
     @color.setter
     def color(self, c):
-        r, g, b = c
         was_enabled = self.updates_enabled
         self.updates_enabled = False
         for p in self:
@@ -96,11 +100,9 @@ class RGBXmasTree(SourceMixin, SPIDevice):
         self.updates_enabled = was_enabled
         self._brightness = brightness
         self._apply()
-        
 
     def apply(self):
         self._apply(True)
-
 
     def _apply(self, force=False):
         if not (self.updates_enabled or force):
@@ -108,13 +110,12 @@ class RGBXmasTree(SourceMixin, SPIDevice):
 
         max_brightness = 31
 
-        start_of_frame = [0]*4
-        end_of_frame = [0]*5
-        pixels = [[0b11100000 | int(p.brightness * max_brightness), int(p.b*255), int(p.g*255), int(p.r*255)] for p in self]
+        start_of_frame = [0] * 4
+        end_of_frame = [0] * 5
+        pixels = [[0b11100000 | int(p.brightness * max_brightness), int(p.b * 255), int(p.g * 255), int(p.r * 255)] for p in self]
         pixel_bytes = [i for p in pixels for i in p]
         data = start_of_frame + pixel_bytes + end_of_frame
         self._spi.transfer(data)
-        
 
     def on(self):
         self.color = (1, 1, 1)

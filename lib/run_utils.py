@@ -1,19 +1,10 @@
-from lib.tree import RGBXmasTree
-from time import time
 import random
+from time import time
+
+from lib.tree import RGBXmasTree
 
 
-effect_funcs = []
-
-
-def register_effect(f):
-    global effect_funcs
-    effect_funcs.append(f)
-
-
-def run_multi():
-    global effect_funcs
-
+def run_random(effect_funcs):
     tree = RGBXmasTree()
     try:
         while True:
@@ -31,14 +22,17 @@ def run_multi():
         tree.close()
 
 
-def run_single(f):
+def run_single(f, max_duration=0):
     tree = RGBXmasTree()
     try:
         tree.brightness = 0.04
-        f(tree, 0)
+        if max_duration > 0:
+            end_time = time() + max_duration
+        else:
+            end_time = 0
+        f(tree, end_time)
     except KeyboardInterrupt:
         pass
     finally:
         tree.off()
         tree.close()
-

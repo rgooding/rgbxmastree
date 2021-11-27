@@ -1,5 +1,6 @@
-from lib.tree import RGBXmasTree
 from time import sleep
+
+from lib.tree import RGBXmasTree
 
 tree = RGBXmasTree(brightness=0)
 try:
