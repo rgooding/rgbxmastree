@@ -18,6 +18,7 @@ def run_random(effect_funcs):
     except KeyboardInterrupt:
         pass
     finally:
+        tree.updates_enabled = True
         tree.off()
         tree.close()
 
@@ -34,5 +35,6 @@ def run_single(f, max_duration=0):
     except KeyboardInterrupt:
         pass
     finally:
+        tree.updates_enabled = True
         tree.off()
         tree.close()
