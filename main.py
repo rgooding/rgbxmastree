@@ -3,6 +3,7 @@ from effects.colour_cycle import colour_cycle
 from effects.colour_streams import colour_streams
 from effects.colour_waves import colour_waves
 from effects.colour_waves_vertical import colour_waves_vertical
+from effects.random_colours import random_colours
 from effects.random_sparkles import random_sparkles
 from effects.sparkles import sparkles
 from effects.streams import streams
@@ -17,6 +18,7 @@ if __name__ == '__main__':
         colour_streams,
         colour_waves,
         colour_waves_vertical,
+        random_colours,
         random_sparkles,
         sparkles,
         streams,
