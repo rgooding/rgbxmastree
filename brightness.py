@@ -1,4 +1,4 @@
-from tree import RGBXmasTree
+from lib.tree import RGBXmasTree
 from time import sleep
 
 tree = RGBXmasTree(brightness=0)
@@ -11,4 +11,3 @@ try:
 finally:
     tree.off()
     tree.close()
-    
