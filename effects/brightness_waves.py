@@ -1,4 +1,4 @@
-from time import time
+from time import time,sleep
 
 from colorzero import Color
 
@@ -39,3 +39,4 @@ def brightness_waves(tree, end_time):
                 tree[n].brightness_int = f.value()
             i += 1
         tree.apply()
+        sleep(0.01)
