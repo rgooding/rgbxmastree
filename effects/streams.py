@@ -3,6 +3,8 @@ from time import sleep, time
 
 from colorzero import Color
 
+from lib.fade import fade_to
+
 
 def streams(tree, end_time):
     main_colour = Color('blue')
@@ -19,7 +21,7 @@ def streams(tree, end_time):
         [3, 22, 23, 24],
     ]
 
-    tree.color = main_colour
+    fade_to(tree, main_colour)
 
     while end_time == 0 or time() < end_time:
         # sleep for between 0.5 and 1.2 seconds

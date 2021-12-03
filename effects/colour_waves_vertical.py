@@ -2,6 +2,8 @@ from time import time, sleep
 
 from colorzero import Color, Hue
 
+from lib.fade import fade_to_multi
+
 
 def colour_waves_vertical(tree, end_time):
     rows = [
@@ -17,11 +19,12 @@ def colour_waves_vertical(tree, end_time):
 
     tree.updates_enabled = False
     colour = Color('red')
+    colours = [(0, 0, 0) for p in tree]
     for row in rows:
         for n in row:
-            tree[n].color = colour
+            colours[n] = colour
         colour += Hue(deg=30)
-    tree.apply()
+    fade_to_multi(tree, colours)
 
     # Rotate colours
     while end_time == 0 or time() < end_time:

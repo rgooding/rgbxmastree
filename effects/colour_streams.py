@@ -3,6 +3,8 @@ from time import sleep, time
 
 from colorzero import Color, Hue
 
+from lib.fade import fade_to_multi
+
 
 def colour_streams(tree, end_time):
     stream_pixels = [
@@ -20,12 +22,15 @@ def colour_streams(tree, end_time):
     stream_brightness = 4
 
     tree.updates_enabled = False
+    initial_colours = []
     colour = Color('red')
     for p in tree:
-        p.color = colour
         p.brightness_int = main_brightness
+        initial_colours.append(colour)
         colour += Hue(deg=90)
     tree.apply()
+
+    fade_to_multi(tree, initial_colours)
 
     while end_time == 0 or time() < end_time:
         # sleep for between 0.5 and 1.2 seconds

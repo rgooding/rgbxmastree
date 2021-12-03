@@ -2,6 +2,7 @@ from time import time
 
 from colorzero import Color
 
+from lib.fade import fade_to
 from lib.flasher import Flasher
 
 
@@ -19,8 +20,9 @@ def brightness_waves(tree, end_time):
     min_brightness = 1
     max_brightness = 8
 
+    fade_to(tree, Color('blue'))
     tree.updates_enabled = False
-    tree.color = Color('blue')
+    # tree.color = Color('blue')
 
     flashers = []
     i = 0

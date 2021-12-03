@@ -3,6 +3,8 @@ from time import sleep, time
 
 from colorzero import Color
 
+from lib.fade import fade_to
+
 
 def sparkles(tree, end_time):
     main_colour = Color('blue')
@@ -15,8 +17,8 @@ def sparkles(tree, end_time):
     ]
     flash_time = 0.1
 
-    tree.color = main_colour
     tree.brightness = main_brightness
+    fade_to(tree, main_colour)
 
     tree.updates_enabled = False
     while end_time == 0 or time() < end_time:
