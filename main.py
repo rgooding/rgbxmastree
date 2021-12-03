@@ -1,6 +1,6 @@
-from effects.brightness_waves import brightness_waves
 from effects.brightness_waves2 import brightness_waves2
 from effects.colour_cycle import colour_cycle
+from effects.colour_flashers import colour_flashers
 from effects.colour_streams import colour_streams
 from effects.colour_waves import colour_waves
 from effects.colour_waves_vertical import colour_waves_vertical
@@ -16,6 +16,7 @@ if __name__ == '__main__':
     run_random([
         brightness_waves2,
         colour_cycle,
+        colour_flashers,
         colour_streams,
         colour_waves,
         colour_waves_vertical,
