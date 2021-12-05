@@ -24,6 +24,14 @@ class Pixel:
         self.parent.apply(False)
 
     @property
+    def value(self):
+        return self._color
+
+    @value.setter
+    def value(self, value):
+        self.color = value
+
+    @property
     def r(self):
         return self._color[0]
 
@@ -83,8 +91,16 @@ class RGBXmasTree(SourceMixin, SPIDevice):
 
     @property
     def value(self):
-        # Not used, just to satisfy the abstract parent
-        return True
+        return [p.value for p in self]
+
+    @value.setter
+    def value(self, value):
+        was_enabled = self.updates_enabled
+        self.updates_enabled = False
+        for i in range(0, len(value)):
+            self[i].value = value[i]
+        self.updates_enabled = was_enabled
+        self.apply(False)
 
     @property
     def color(self):
