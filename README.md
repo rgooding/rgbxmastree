@@ -27,6 +27,6 @@ While working with the RGB Xmas Tree I have made a couple of observations that c
   * Each time a single LED is changed the state for all LEDs must be sent to the tree
   * Updating the tree state takes a noticeable amount of time so it is best to keep updates to a minimum to ensure smooth effects
 
-The `tree.py` module in this repository is modified from the official version with some enhancements:
+The `tree.py` module in this repository is quite heavily modified and refactored from the original version to give some enhancements:
 * The brightness can be set for individual pixels
 * Updates can be disabled, allowing you to configure the pixel values then apply the changes all at once. To use this set `tree.updates_enabled = False` then call `tree.apply()` to update the state of the LEDs.
