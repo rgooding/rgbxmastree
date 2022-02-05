@@ -24,16 +24,8 @@ def fade_to(tree, c, duration=default_fade_duration):
     for i in range(1, steps):
         idx = 0
         for p in tree:
-            r1, g1, b1 = start_colours[idx]
+            p.color = _calc_fade_colour(start_colours[idx], c, steps, i)
             idx += 1
-            dr = (r2 - r1) / steps
-            dg = (g2 - g1) / steps
-            db = (b2 - b1) / steps
-
-            r = r1 + (i * dr)
-            g = g1 + (i * dg)
-            b = b1 + (i * db)
-            p.color = Color(r, g, b)
         tree.apply()
         s.sleep(delay)
 
@@ -56,17 +48,8 @@ def fade_to_multi(tree, dest_colours, duration=default_fade_duration):
     for i in range(1, steps):
         idx = 0
         for p in tree:
-            r1, g1, b1 = start_colours[idx]
-            r2, g2, b2 = dest_colours[idx]
+            p.color = _calc_fade_colour(start_colours[idx], dest_colours[idx], steps, i)
             idx += 1
-            dr = (r2 - r1) / steps
-            dg = (g2 - g1) / steps
-            db = (b2 - b1) / steps
-
-            r = r1 + (i * dr)
-            g = g1 + (i * dg)
-            b = b1 + (i * db)
-            p.color = Color(r, g, b)
         tree.apply()
         sleep(delay)
 
@@ -76,3 +59,17 @@ def fade_to_multi(tree, dest_colours, duration=default_fade_duration):
         i += 1
     tree.apply()
     tree.updates_enabled = upd_was_enabled
+
+
+def _calc_fade_colour(start_colour, dest_colour, num_steps, step_num):
+    r1, g1, b1 = start_colour
+    r2, g2, b2 = dest_colour
+    dr = (r2 - r1) / num_steps
+    dg = (g2 - g1) / num_steps
+    db = (b2 - b1) / num_steps
+
+    return (
+        r1 + (step_num * dr),
+        g1 + (step_num * dg),
+        b1 + (step_num * db)
+    )
