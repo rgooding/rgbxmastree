@@ -5,7 +5,7 @@ from lib.sleeper import Sleeper
 from lib.tree import RGBXmasTree
 
 
-def colour_waves(tree: RGBXmasTree, stop_func):
+def colour_waves(tree: RGBXmasTree, stop_func, start_colour=Color('red')):
     rows = [
         [3],
         [2, 4, 9, 10, 21],
@@ -15,7 +15,7 @@ def colour_waves(tree: RGBXmasTree, stop_func):
     ]
 
     tree.updates_enabled = False
-    colour = Color('red')
+    colour = start_colour
     colours = [(0, 0, 0) for p in tree]
     for row in rows:
         for n in row:
