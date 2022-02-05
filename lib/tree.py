@@ -79,6 +79,7 @@ class RGBXmasTree(SourceMixin, SPIDevice):
                                           pin_factory=PiGPIOFactory(),
                                           *args,
                                           **kwargs)
+        self._spi.rate = 250000
         self._all = [Pixel(parent=self, index=i, brightness=brightness) for i in range(pixels)]
         self.updates_enabled = True
         self.off()
