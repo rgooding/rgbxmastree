@@ -4,6 +4,7 @@ from colorzero import Color
 
 from lib.fade import fade_to
 from lib.flasher import Flasher
+from lib.sleeper import Sleeper
 
 
 def brightness_waves(tree, end_time):
@@ -27,6 +28,7 @@ def brightness_waves(tree, end_time):
             Flasher(min_value=min_brightness, max_value=max_brightness, duration=2000, time_offset=i * 400))
         i += 1
 
+    s = Sleeper()
     while end_time == 0 or time() < end_time:
         i = 0
         for row in rows:
@@ -35,4 +37,4 @@ def brightness_waves(tree, end_time):
                 tree[n].brightness_int = int(f.value())
             i += 1
         tree.apply()
-        sleep(0.01)
+        s.sleep(0.01)

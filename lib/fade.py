@@ -2,6 +2,8 @@ from time import sleep
 
 from colorzero import Color
 
+from lib.sleeper import Sleeper
+
 default_fade_duration = 2
 
 
@@ -18,6 +20,7 @@ def fade_to(tree, c, duration=default_fade_duration):
 
     upd_was_enabled = tree.updates_enabled
     tree.updates_enabled = False
+    s = Sleeper()
     for i in range(1, steps):
         idx = 0
         for p in tree:
@@ -32,7 +35,7 @@ def fade_to(tree, c, duration=default_fade_duration):
             b = b1 + (i * db)
             p.color = Color(r, g, b)
         tree.apply()
-        sleep(delay)
+        s.sleep(delay)
 
     tree.color = Color(r2, g2, b2)
     tree.apply()

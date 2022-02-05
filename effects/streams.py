@@ -4,6 +4,7 @@ from time import sleep, time
 from colorzero import Color
 
 from lib.fade import fade_to
+from lib.sleeper import Sleeper
 
 
 def streams(tree, end_time):
@@ -28,10 +29,11 @@ def streams(tree, end_time):
         sleep(random.randrange(5, 12, 1) / 10)
 
         stream = random.choice(stream_pixels)
+        s = Sleeper()
         for i in stream:
             tree[i].color = stream_colour
-            sleep(0.05)
-        sleep(0.1)
+            s.sleep(0.05)
+        s.sleep(0.1)
         for i in stream:
             tree[i].color = main_colour
-            sleep(0.05)
+            s.sleep(0.05)

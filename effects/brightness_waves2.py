@@ -1,4 +1,4 @@
-from time import time, sleep
+from time import time
 
 from colorzero import Color
 
@@ -7,6 +7,8 @@ from lib.flasher import Flasher
 
 
 # Like brightness_waves but uses the colour value to change the brightness instead of the brightness property
+from lib.sleeper import Sleeper
+
 
 def brightness_waves2(tree, end_time):
     rows = [
@@ -33,6 +35,7 @@ def brightness_waves2(tree, end_time):
             Flasher(min_value=min_brightness, max_value=max_brightness, duration=2000, time_offset=i * 400))
         i += 1
 
+    s = Sleeper()
     while end_time == 0 or time() < end_time:
         i = 0
         for row in rows:
@@ -45,4 +48,4 @@ def brightness_waves2(tree, end_time):
                 tree[n].color = Color(r, g, b)
             i += 1
         tree.apply()
-        sleep(0.01)
+        s.sleep(0.01)

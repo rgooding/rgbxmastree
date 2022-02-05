@@ -7,6 +7,7 @@ from lib.fade import fade_to_multi
 
 
 # Like random_sparkles but uses a preset list of colours
+from lib.sleeper import Sleeper
 
 
 def random_colours(tree, end_time):
@@ -22,7 +23,8 @@ def random_colours(tree, end_time):
     colours = [random.choice(colours) for p in tree]
     fade_to_multi(tree, colours)
 
+    s = Sleeper()
     while end_time == 0 or time() < end_time:
-        sleep(0.1)
+        s.sleep(0.2)
         pixel = random.choice(tree)
         pixel.color = random.choice(colours)

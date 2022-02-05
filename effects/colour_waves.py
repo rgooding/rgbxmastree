@@ -1,8 +1,9 @@
-from time import time, sleep
+from time import time
 
 from colorzero import Color, Hue
 
 from lib.fade import fade_to_multi
+from lib.sleeper import Sleeper
 
 
 def colour_waves(tree, end_time):
@@ -24,8 +25,9 @@ def colour_waves(tree, end_time):
     fade_to_multi(tree, colours)
 
     # Rotate colours
+    s = Sleeper()
     while end_time == 0 or time() < end_time:
-        sleep(0.0025)
+        s.sleep(0.0025)
         for p in tree:
             c = p.color
             c += Hue(deg=-1)

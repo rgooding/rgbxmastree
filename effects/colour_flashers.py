@@ -1,9 +1,10 @@
-from time import time, sleep
+from time import time
 
 from colorzero import Color, Hue
 
 from lib.fade import fade_to_multi
 from lib.flasher import Flasher
+from lib.sleeper import Sleeper
 
 
 # colour cycle each row separately using a Flasher to control the colour
@@ -44,6 +45,7 @@ def colour_flashers(tree, end_time):
         flashers.append(Flasher(min_value=min_shift, max_value=max_shift, duration=2000))
         i += 1
 
+    s = Sleeper()
     while end_time == 0 or time() < end_time:
         i = 0
         for row in rows:
@@ -53,4 +55,4 @@ def colour_flashers(tree, end_time):
                 tree[n].color = c
             i += 1
         tree.apply()
-        sleep(0.01)
+        s.sleep(0.01)
