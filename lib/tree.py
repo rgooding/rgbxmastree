@@ -2,6 +2,7 @@ from statistics import mean
 
 from colorzero import Color
 from gpiozero import SPIDevice, SourceMixin
+from gpiozero.pins.pigpio import PiGPIOFactory
 
 max_brightness = 31
 
@@ -73,7 +74,11 @@ class Pixel:
 
 class RGBXmasTree(SourceMixin, SPIDevice):
     def __init__(self, pixels=25, brightness=0.5, mosi_pin=12, clock_pin=25, *args, **kwargs):
-        super(RGBXmasTree, self).__init__(mosi_pin=mosi_pin, clock_pin=clock_pin, *args, **kwargs)
+        super(RGBXmasTree, self).__init__(mosi_pin=mosi_pin,
+                                          clock_pin=clock_pin,
+                                          pin_factory=PiGPIOFactory(),
+                                          *args,
+                                          **kwargs)
         self._all = [Pixel(parent=self, index=i, brightness=brightness) for i in range(pixels)]
         self.updates_enabled = True
         self.off()
