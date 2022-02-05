@@ -1,12 +1,11 @@
-from time import time
-
 from colorzero import Color
 
 from lib.fade import fade_to_multi
 from lib.sleeper import Sleeper
+from lib.tree import RGBXmasTree
 
 
-def colour_swap(tree, end_time):
+def colour_swap(tree: RGBXmasTree, stop_func):
     colours = (Color('red'), Color('green'))
 
     start_colours = [(0, 0, 0) for p in tree]
@@ -19,7 +18,7 @@ def colour_swap(tree, end_time):
     # swap colours
     j = 0
     s = Sleeper()
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         s.sleep(3)
         j += 1
         j = j % 2

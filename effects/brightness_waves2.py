@@ -1,16 +1,15 @@
-from time import time
-
 from colorzero import Color
 
 from lib.fade import fade_to
 from lib.flasher import Flasher
+from lib.sleeper import Sleeper
+from lib.tree import RGBXmasTree
 
 
 # Like brightness_waves but uses the colour value to change the brightness instead of the brightness property
-from lib.sleeper import Sleeper
 
 
-def brightness_waves2(tree, end_time):
+def brightness_waves2(tree: RGBXmasTree, stop_func):
     rows = [
         [3],
         [2, 4, 9, 10, 21],
@@ -36,7 +35,7 @@ def brightness_waves2(tree, end_time):
         i += 1
 
     s = Sleeper()
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         i = 0
         for row in rows:
             f = flashers[i]

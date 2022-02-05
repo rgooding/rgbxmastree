@@ -1,5 +1,5 @@
 import random
-from time import sleep, time
+from time import sleep
 
 from colorzero import Color
 
@@ -7,7 +7,7 @@ from lib.fade import fade_to
 from lib.sleeper import Sleeper
 
 
-def streams(tree, end_time):
+def streams(tree, stop_func):
     main_colour = Color('blue')
     stream_colour = Color('white')
 
@@ -24,7 +24,7 @@ def streams(tree, end_time):
 
     fade_to(tree, main_colour)
 
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         # sleep for between 0.5 and 1.2 seconds
         sleep(random.randrange(5, 12, 1) / 10)
 

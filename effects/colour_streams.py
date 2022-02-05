@@ -1,13 +1,14 @@
 import random
-from time import sleep, time
+from time import sleep
 
 from colorzero import Color, Hue
 
 from lib.fade import fade_to_multi
 from lib.sleeper import Sleeper
+from lib.tree import RGBXmasTree
 
 
-def colour_streams(tree, end_time):
+def colour_streams(tree: RGBXmasTree, stop_func):
     stream_pixels = [
         [3, 2, 1, 0],
         [3, 4, 5, 6],
@@ -33,7 +34,7 @@ def colour_streams(tree, end_time):
 
     fade_to_multi(tree, initial_colours)
 
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         # sleep for between 0.5 and 1.2 seconds
         sleep(random.randrange(5, 12, 1) / 10)
 

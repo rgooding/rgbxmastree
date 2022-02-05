@@ -1,12 +1,13 @@
 import random
-from time import sleep, time
+from time import sleep
 
 from colorzero import Color
 
 from lib.fade import fade_to
+from lib.tree import RGBXmasTree
 
 
-def sparkles(tree, end_time):
+def sparkles(tree: RGBXmasTree, stop_func):
     main_colour = Color('blue')
     main_brightness = 0.033
     sparkle_brightness = 0.125
@@ -21,7 +22,7 @@ def sparkles(tree, end_time):
     fade_to(tree, main_colour)
 
     tree.updates_enabled = False
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         # sleep for between 0.3 and 0.7 seconds
         sleep(random.randrange(3, 7, 1) / 10)
         # flash a random pixel

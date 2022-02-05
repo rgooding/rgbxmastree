@@ -1,15 +1,14 @@
-from time import time
-
 from colorzero import Color, Hue
 
 from lib.fade import fade_to_multi
 from lib.flasher import Flasher
 from lib.sleeper import Sleeper
+from lib.tree import RGBXmasTree
 
 
 # colour cycle each row separately using a Flasher to control the colour
 
-def colour_flashers(tree, end_time):
+def colour_flashers(tree: RGBXmasTree, stop_func):
     rows = [
         [3],
         [2, 4, 9, 10, 21],
@@ -46,7 +45,7 @@ def colour_flashers(tree, end_time):
         i += 1
 
     s = Sleeper()
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         i = 0
         for row in rows:
             f = flashers[i]

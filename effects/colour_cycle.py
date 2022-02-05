@@ -1,17 +1,15 @@
-from time import time
-
 from colorzero import Color, Hue
 
 from lib.fade import fade_to
+from lib.sleeper import Sleeper
+from lib.tree import RGBXmasTree
 
 
 # Basically the same as the huecycle example
-from lib.sleeper import Sleeper
 
-
-def colour_cycle(tree, end_time):
+def colour_cycle(tree: RGBXmasTree, stop_func):
     fade_to(tree, Color('red'))
     s = Sleeper()
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         tree.color += Hue(deg=1)
         s.sleep(0.05)

@@ -4,6 +4,7 @@ from time import time
 
 # random_sparkles based on the randomsparkles example
 from lib.sleeper import Sleeper
+from lib.tree import RGBXmasTree
 
 
 def random_color():
@@ -13,9 +14,9 @@ def random_color():
     return r, g, b
 
 
-def random_sparkles(tree, end_time):
+def random_sparkles(tree: RGBXmasTree, stop_func):
     s = Sleeper()
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         s.sleep(0.1)
         pixel = random.choice(tree)
         pixel.color = random_color()

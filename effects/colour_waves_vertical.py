@@ -1,12 +1,11 @@
-from time import time
-
 from colorzero import Color, Hue
 
 from lib.fade import fade_to_multi
 from lib.sleeper import Sleeper
+from lib.tree import RGBXmasTree
 
 
-def colour_waves_vertical(tree, end_time):
+def colour_waves_vertical(tree: RGBXmasTree, stop_func):
     rows = [
         [3, 2, 1, 0],
         [9, 8, 7],
@@ -29,7 +28,7 @@ def colour_waves_vertical(tree, end_time):
 
     # Rotate colours
     s = Sleeper()
-    while end_time == 0 or time() < end_time:
+    while stop_func is None or not stop_func():
         s.sleep(0.0025)
         for p in tree:
             c = p.color
