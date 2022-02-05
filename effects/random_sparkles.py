@@ -1,11 +1,10 @@
 import random
-from time import time
 
-
-# random_sparkles based on the randomsparkles example
 from lib.sleeper import Sleeper
 from lib.tree import RGBXmasTree
 
+
+# random_sparkles based on the randomsparkles example
 
 def random_color():
     r = random.random()

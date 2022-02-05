@@ -17,9 +17,7 @@ def brightness_waves2(tree: RGBXmasTree, stop_func):
         [1, 5, 8, 11, 14, 17, 20, 23],
         [0, 6, 7, 12, 15, 16, 19, 24],
     ]
-    # starting brightness of each row
-    # brightnesses = [1.0, 0.5, 0.25, 0.1, 0.1, 0.1, 0.25, 0.5]
-    brightnesses = [1.0, 0.5, 0.25, 0.125, 0.0635, 0.03, 0.01, 0.01]
+
     min_brightness = 0.1
     max_brightness = 1.0
 

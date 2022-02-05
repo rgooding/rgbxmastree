@@ -19,7 +19,7 @@ def random_colours(tree: RGBXmasTree, stop_func):
         Color('magenta'),
     ]
 
-    colours = [random.choice(colours) for p in tree]
+    colours = [random.choice(colours) for _ in tree]
     fade_to_multi(tree, colours)
 
     s = Sleeper()

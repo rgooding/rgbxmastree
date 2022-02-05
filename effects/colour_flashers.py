@@ -27,7 +27,7 @@ def colour_flashers(tree: RGBXmasTree, stop_func):
     min_shift = 0
     max_shift = 90
 
-    initial_colours = [(0, 0, 0) for p in tree]
+    initial_colours = [(0, 0, 0) for _ in tree]
     i = 0
     for row in rows:
         for n in row:

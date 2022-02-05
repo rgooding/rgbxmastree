@@ -11,9 +11,9 @@ def green_and_cycle(tree: RGBXmasTree, stop_func):
 
     pink_px = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23}
 
-    start_colours = [(0.0, 0.0, 0.0) for p in tree]
+    start_colours = [(0.0, 0.0, 0.0) for _ in tree]
     i = 0
-    for p in tree:
+    for _ in tree:
         if i in pink_px:
             start_colours[i] = pink
         else:

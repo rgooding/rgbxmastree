@@ -1,7 +1,7 @@
 import random
 from time import sleep
 
-from fade import fade_to
+from lib.fade import fade_to
 from lib.tree import RGBXmasTree
 
 
