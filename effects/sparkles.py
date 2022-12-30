@@ -23,8 +23,8 @@ def sparkles(tree: RGBXmasTree, stop_func):
 
     tree.updates_enabled = False
     while stop_func is None or not stop_func():
-        # sleep for between 0.3 and 0.7 seconds
-        sleep(random.randrange(3, 7, 1) / 10)
+        # sleep for between 0.1 and 0.4 seconds
+        sleep(random.randrange(1, 4, 1) / 10)
         # flash a random pixel
         p = random.choice(tree)
         p.color = random.choice(sparkle_colours)
