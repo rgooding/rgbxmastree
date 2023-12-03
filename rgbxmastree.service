@@ -1,0 +1,14 @@
+[Unit]
+Description=RGB Xmas Tree
+Requires=pigpiod.service
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+ExecStart=/usr/bin/python3 /home/pi/rgbxmastree/main.py
+Restart=always
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
