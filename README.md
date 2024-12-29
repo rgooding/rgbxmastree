@@ -6,12 +6,21 @@ I would recommend getting familiar with the [official examples](https://github.c
 
 ## Getting Started
 
-This has only been tested under Raspberry Pi OS 11 on a Raspberry Pi 4 and Zero W but it should be compatible with any Raspberry Pi running Raspbian or Raspberry Pi OS.
+This has been tested on a Raspberry Pi 4 and ZeroW but it should be compatible with any model.
 
 Make sure you have the required packages installed:
+
+#### Raspberry Pi OS 11 (bullseye):
 ```bash
 sudo apt install python3-gpiozero python3-pigpio pigpio
 ```
+
+#### Raspberry Pi OS 12 (bookworm):
+```bash
+sudo apt install python3-gpiozero=1.6.2-1+b4 python3-pigpio pigpio
+sudo apt-mark hold python3-gpiozero
+```
+
 Start pigpiod:
 ```bash
 sudo systemctl start pigpiod
